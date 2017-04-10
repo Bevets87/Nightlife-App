@@ -1,8 +1,11 @@
-body {
+* {
   margin: 0;
   padding: 0;
 }
 
-h1{
-  color: blue;
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
 }

@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css?family=Barrio');
+
+.about-container {
+  text-align: center;
+  background: url('http://nyc.wpengine.netdna-cdn.com/wp-content/uploads/2017/01/20140423_Es_bar-9571_ENF.tif.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  height: 100vh;
+  opacity: 0.6;
+}
+
+.about-title-container {
+  position: absolute;
+  width: 80%;
+  z-index: 1;
+  top: 25vh;
+  left: 10%;
+  text-align: center;
+
+  h1 {
+    font-family: 'Barrio', cursive;
+    font-size: 75px;
+    color: black;
+    font-weight: bold;
+  }
+
+  .input-group {
+    width: 50%;
+    margin: 30px auto;
+
+    input {
+      background: rgba(0,0,0,0.8);
+      border: none;
+      outline: none;
+      color: white;
+      font-size: 25px;
+      height: 50px;
+      &::placeholder {
+        color: white;
+      }
+    }
+
+    .btn {
+      background: rgba(0,0,0,0.8);
+      border: none;
+      color: white;
+      outline: none;
+      height: 50px;
+      font-size: 20px;
+    }
+  }
+}

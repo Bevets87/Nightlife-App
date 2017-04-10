@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Sigmar+One');
+nav {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  height: 50px;
+  background: rgba(0,0,0,0.7);
+  width: 100%;
+
+  .logo {
+    font-family: 'Sigmar One', cursive;
+    color: white;
+    font-size: 25px;
+    float: left;
+    margin: 12.5px 10px;
+  }
+
+  .nav-util-container {
+    float: right;
+    color: white;
+     .login {
+       float: right;
+       font-size: 25px;
+       margin: 12.5px 10px;
+     }
+     .register {
+       float: right;
+       font-size: 25px;
+       margin: 12.5px 10px;
+     }
+  }
+}
