@@ -5,7 +5,7 @@ nav {
   top: 0;
   left: 0;
   height: 50px;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.5);
   width: 100%;
 
   .logo {
@@ -19,15 +19,21 @@ nav {
   .nav-util-container {
     float: right;
     color: white;
-     .login {
+    .login {
+       font-family: 'Sigmar One', cursive;
        float: right;
-       font-size: 25px;
-       margin: 12.5px 10px;
+       font-size: 20px;
+       margin: 15px 10px;
+       border-left: 2px solid white;
+       margin-left: 0;
      }
      .register {
+       font-family: 'Sigmar One', cursive;
        float: right;
-       font-size: 25px;
-       margin: 12.5px 10px;
+       font-size: 20px;
+       margin: 15px 10px;
+       border-right: 2px solid white;
+       margin-right: 0;
      }
   }
 }

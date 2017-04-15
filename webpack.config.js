@@ -1,10 +1,10 @@
-import path from 'path'
-import webpack from 'webpack'
+const path = require ('path')
+const webpack = require('webpack')
 
-export default {
+module.exports = {
   devtool: 'eval-source-map',
   entry: [
-    'webpack-hot-middleware/client',
+    'webpack-hot-middleware/client?reload=true',
     path.resolve(__dirname, 'client') + '/index.js'
   ],
   output: {
@@ -12,12 +12,12 @@ export default {
     publicPath: '/',
     filename: 'bundle.js'
   },
-  plugins: [
+plugins: [
    new webpack.NoEmitOnErrorsPlugin(),
    new webpack.optimize.OccurrenceOrderPlugin(),
    new webpack.HotModuleReplacementPlugin()
  ],
-  module: {
+module: {
     loaders: [
       {
         test: /\.js$/,
@@ -51,6 +51,10 @@ export default {
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+      },
+      {
+        test: /\.mp4$/,
+        loader: 'url-loader?limit=10000&mimetype=video/mp4'
       }
     ]
   },

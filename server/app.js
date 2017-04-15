@@ -5,11 +5,13 @@ import bodyParser from 'body-parser'
 import webpack from 'webpack'
 import webpackMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import webpackConfig from '../webpack.config.dev'
+import webpackConfig from '../webpack.config'
+
+import api from './routes/api'
 
 import { PORT } from './config'
 
-const app = express()
+let app = express()
 
 const compiler = webpack(webpackConfig)
 
@@ -23,7 +25,8 @@ app.use(webpackHotMiddleware(compiler))
 
 app.use(bodyParser.json())
 
-app.use(express.static('client'))
+app.use('/api', api)
+app.use('/*', express.static('client'))
 
 app.listen(PORT, () => {
   console.log(`listening on localhost ${PORT}` )
