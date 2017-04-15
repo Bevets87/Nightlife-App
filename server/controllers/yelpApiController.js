@@ -1,7 +1,6 @@
 import yelp from 'yelp-fusion'
+import { CLIENTID, CLIENTSECRET } from '../config'
 
-const clientId = 'seAX967Wk8qiVXOYjbregg'
-const clientSecret = '6IeifH91Xo8bzLOsXuPojHIH1oxP3WClPbbcwxv1isScg5kM9uJH9cfZNkMPTQMc'
 
 export const handle_create_yelpApi = (req, res) => {
   const location = req.body.searchTerm
@@ -11,14 +10,14 @@ export const handle_create_yelpApi = (req, res) => {
     location: location
   }
 
-  yelp.accessToken(clientId, clientSecret).then(response => {
+  yelp.accessToken(CLIENTID, CLIENTSECRET).then(response => {
     const client = yelp.client(response.jsonBody.access_token)
 
     client.search(searchRequest).then(response => {
-      const bars = response.jsonBody.businesses
-      res.json({bars})
+      const listings = response.jsonBody.businesses
+      res.json({listings})
     })
   }).catch(e => {
-      res.json({e})
+      console.log(e)
   })
 }

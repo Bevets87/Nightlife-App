@@ -1,7 +1,9 @@
 import React from 'react'
 import { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import axios from 'axios'
+import { connect } from 'react-redux'
+import { getYelpListings } from '../actions/yelpApiActions'
 
 import './Home.scss'
 
@@ -9,8 +11,7 @@ class Home extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      searchTerm: '',
-      bars: []
+      searchTerm: ''
     }
     this.handleInput = this.handleInput.bind(this)
     this.handleClick = this.handleClick.bind(this)
@@ -22,21 +23,10 @@ class Home extends Component {
   }
   handleClick (event) {
     event.preventDefault()
-
-    axios.post('/api', this.state)
-      .then(
-        response => {
-          this.setState({
-            bars: response.data.bars
-          })
-          console.log(this.state.bars)
-        },
-        error => {
-          console.log(error)
-        }
-      )
+    this.props.dispatch(getYelpListings(this.state))
   }
   render () {
+    const { listings } = this.props
     return (
       <div>
         <div className='home-title-container'>
@@ -48,18 +38,21 @@ class Home extends Component {
             </span>
           </div>
         </div>
-        {this.state.bars.map(bar => {
-          const { name, rating } = bar
-          return (
-            <div className='home-bars-container'>
-              <h1>{name}</h1>
-              <h1>{rating}</h1>
-            </div>
-          )
-        })}
       </div>
     )
   }
 }
 
-export default Home
+Home.propTypes = {
+  listings: PropTypes.array,
+  dispatch: PropTypes.func
+}
+
+const mapStateToProps = (state) => {
+  const { listings } = state
+  return {
+    listings
+  }
+}
+
+export default connect(mapStateToProps)(Home)
