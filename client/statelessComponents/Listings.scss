@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css?family=Barrio');
+
+.listings-container {
+  position: absolute;
+  width: 90%;
+  top: 100px;
+  left: 5%;
+  background: rgba(0,0,0,0.7);
+  border-radius: 10px;
+
+  .listing-container {
+    height: 300px;
+    border: 2px solid white;
+    border-radius: 10px;
+    overflow-y: scroll;
+     h1 {
+       font-family: 'Barrio', cursive;
+       color: white;
+       text-align: center;
+     }
+
+     img {
+       width: inherit;
+       height: 200px;
+     }
+
+     &::-webkit-scrollbar {
+       width: 12px;
+     }
+
+     &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      border-radius: 10px;
+     }
+
+     &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    }
+  }
+}
+
+.loading-container {
+  position: absolute;
+  background: rgba(0,0,0,0.7);
+  width: 30%;
+  top: 100px;
+  left: 35%;
+  text-align: center;
+  border-radius: 10px;
+
+  h1 {
+    color: white;
+    font-family: 'Barrio', cursive;
+    font-size: 70px;
+  }
+
+}
+
+.error-container {
+  position: absolute;
+  background: rgba(0,0,0,0.7);
+  width: 30%;
+  top: 100px;
+  left: 35%;
+  text-align: center;
+  border-radius: 10px;
+
+  h1 {
+    color: white;
+    font-family: 'Barrio', cursive;
+    font-size: 50px;
+  }
+}

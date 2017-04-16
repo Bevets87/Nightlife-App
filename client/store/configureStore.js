@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
-import yelpApiReducer from '../reducers/yelpApiReducer'
+import listingReducer from '../reducers/listingReducer'
 
 const store = createStore(
-  yelpApiReducer,
+  listingReducer,
   applyMiddleware(thunk)
 )
 

@@ -1,9 +1,9 @@
 import express from 'express'
 
-import { handle_create_yelpApi } from '../controllers/yelpApiController'
+import { handle_get_listings } from '../controllers/listingControllers'
 
 let router = express.Router()
 
-router.post('/', handle_create_yelpApi)
+router.post('/', handle_get_listings)
 
 export default router

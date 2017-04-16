@@ -3,7 +3,7 @@ import { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
-import { getYelpListings } from '../actions/yelpApiActions'
+import { requestListings } from '../actions/listingActions'
 
 import './Home.scss'
 
@@ -23,10 +23,12 @@ class Home extends Component {
   }
   handleClick (event) {
     event.preventDefault()
-    this.props.dispatch(getYelpListings(this.state))
+    if(this.state.searchTerm.length > 0) {
+      this.props.dispatch(requestListings(this.state))
+      this.props.history.push('/listings')
+    }
   }
   render () {
-    const { listings } = this.props
     return (
       <div>
         <div className='home-title-container'>
@@ -44,15 +46,8 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  listings: PropTypes.array,
-  dispatch: PropTypes.func
+  dispatch: PropTypes.func,
+  history: PropTypes.object
 }
 
-const mapStateToProps = (state) => {
-  const { listings } = state
-  return {
-    listings
-  }
-}
-
-export default connect(mapStateToProps)(Home)
+export default connect()(Home)
