@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Barrio');
+.modal-listing-container {
+  position: absolute;
+  background: rgba(0,0,0,0.7);
+  width: 70%;
+  border: 5px solid white;
+  border-radius: 20px;
+  top: 60px;
+  left: 15%;
+  text-align: center;
+  font-family: 'Barrio', cursive;
+  color: white;
+
+  h1 {
+    font-size: 70px;
+    font-weight: bold;
+  }
+
+  img {
+    width: 50%;
+    height: 400px;
+    margin: 0 auto;
+  }
+
+  .row {
+    color: white;
+    h3 {
+      font-size: 30px;
+    }
+    .attendees {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 40px;
+      text-align: center;
+    }
+    .going {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 40px;
+      text-align: center;
+    }
+  }
+}

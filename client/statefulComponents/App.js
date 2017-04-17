@@ -5,34 +5,26 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 
-import Navbar from '../statelessComponents/Navbar'
-import VideoBackground from '../statelessComponents/VideoBackground'
 import Home from './Home'
 import Login from './Login'
 import Register from './Register'
 import Listings from '../statelessComponents/Listings'
-import Listing from './Listing'
+import Details from './Details'
+import VideoBackground from '../statelessComponents/VideoBackground'
 
 const App = (props) => {
   const { listings } = props
   return (
     <Router>
       <div>
-        <Navbar />
         <VideoBackground />
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
         <Route path='/listings' component={Listings} />
-        <Route path='/:id' render={(props) => {
+        <Route path='/details/:id' component={(props) => {
           const listing = listings.filter(listing => props.match.params.id == listing.id)
-
-          return (
-            <div>
-              <Navbar listingModal />
-              <Listing key={listing[0].id} listing={listing[0]} {...props} />
-            </div>
-          )
+          return <Details id={listing[0].id} key={props.location.key} {...props} />
         }}/>
       </div>
     </Router>
@@ -41,7 +33,8 @@ const App = (props) => {
 
 App.propTypes = {
   listings: PropTypes.array,
-  match: PropTypes.object
+  match: PropTypes.object,
+  location: PropTypes.object
 }
 
 const mapStateToProps = (state) => {

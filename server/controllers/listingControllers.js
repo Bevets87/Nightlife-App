@@ -11,15 +11,14 @@ export const handle_get_listings = (req, res) => {
   yelp.accessToken(CLIENTID, CLIENTSECRET).then(response => {
     const client = yelp.client(response.jsonBody.access_token)
 
-    client.search(searchRequest).then(
-      response => {
-        const listings = response.jsonBody.businesses
-        res.json({listings})
-      },
-      error => {
-        error = error.response.body
-        res.json({error})
-      }
-    )
+    client.search(searchRequest)
+      .then(
+        response => {
+          const listings = response.jsonBody.businesses
+          res.json({listings})
+      })
+      .catch( error => {
+          res.status(404).send('The search failed! Please try again.')
+      })
   })
 }

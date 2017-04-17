@@ -1,31 +1,57 @@
-import { SET_LISTINGS, GET_LISTINGS, SET_LISTING_ERRORS } from '../actions/listingActions'
+import { SET_LISTINGS, SET_SEARCH, SET_ERRORS } from '../actions/listingActions'
 
 const DEFAULT_STATE = {
   listings: [],
   isFetching: false,
-  errors: {}
+  errors: null
 }
 
 const setListings = (state, action) => {
-  return Object.assign({}, state, {listings: action.listings})
+  return Object.assign(
+    {},
+    state,
+    {
+      listings: action.listings,
+      isFetching: false,
+      errors: null
+    }
+  )
 }
 
-const getListings = (state, action) => {
-  return Object.assign({}, state, {isFetching: action.isFetching})
+const setSearch = (state) => {
+  return Object.assign(
+    {},
+    state,
+    {
+      listings: [],
+      isFetching: true,
+      errors: null
+    }
+  )
 }
 
-const setListingErrors = (state, action) => {
-  return Object.assign({}, state, {errors: action.errors})
+const setErrors = (state, action) => {
+  return Object.assign(
+    {},
+    state,
+    {
+      listings: [],
+      isFetching: false,
+      errors: action.errors
+    }
+  )
 }
+
+
 
 const listingReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-  case GET_LISTINGS:
-    return getListings(state, action)
+  case SET_SEARCH:
+    return setSearch(state, action)
   case SET_LISTINGS:
     return setListings(state, action)
-  case SET_LISTING_ERRORS:
-    return setListingErrors(state, action)
+  case SET_ERRORS:(state, action)
+    return setErrors(state, action)
   default:
     return state
   }

@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { requestListings } from '../actions/listingActions'
 
+import Navbar from '../statelessComponents/Navbar'
+
 import './Home.scss'
 
 class Home extends Component {
@@ -23,6 +25,7 @@ class Home extends Component {
   }
   handleClick (event) {
     event.preventDefault()
+
     if(this.state.searchTerm.length > 0) {
       this.props.dispatch(requestListings(this.state))
       this.props.history.push('/listings')
@@ -31,6 +34,7 @@ class Home extends Component {
   render () {
     return (
       <div>
+        <Navbar/>
         <div className='home-title-container'>
           <h1>Make something happen tonight!</h1>
           <div className='input-group'>
