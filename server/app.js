@@ -9,6 +9,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from '../webpack.config'
 
 import api from './routes/api'
+import user from './routes/user'
 
 import { PORT } from './config'
 
@@ -26,7 +27,9 @@ app.use(webpackHotMiddleware(compiler))
 
 app.use(bodyParser.json())
 
+app.use('/', user)
 app.use('/api', api)
+
 app.use('/*', express.static('client'))
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/NightlifeApp');

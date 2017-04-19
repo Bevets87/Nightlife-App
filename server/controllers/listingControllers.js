@@ -1,3 +1,5 @@
+import Attendees from '../models/Attendees'
+
 import yelp from 'yelp-fusion'
 import { CLIENTID, CLIENTSECRET } from '../config'
 
@@ -21,4 +23,16 @@ export const handle_get_listings = (req, res) => {
           res.status(404).send('The search failed! Please try again.')
       })
   })
+}
+
+export const handle_get_attendees = (req, res) => {
+  console.log(req.params)
+}
+
+export const handle_create_attendees = (req, res) => {
+  console.log(req.body)
+}
+
+export const handle_update_attendees = (req, res) => {
+  console.log(req.body)
 }

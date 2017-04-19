@@ -3,6 +3,7 @@ import { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
+import { createAttendee } from '../actions/attendeeActions'
 
 import _ from 'lodash'
 
@@ -13,6 +14,11 @@ import './Details.scss'
 class Details extends Component {
   constructor (props) {
     super(props)
+    this.state = {
+      attendee: null,
+      bar_id: null,
+      date: null
+    }
     this.handleAttendees = this.handleAttendees.bind(this)
     this.handleGoing = this.handleGoing.bind(this)
   }
@@ -22,7 +28,11 @@ class Details extends Component {
   }
   handleGoing (event) {
     event.preventDefault()
-    console.log(event.target)
+    const { id } = this.props.listings
+    this.setState({
+      bar_id: id
+    })
+    createAttendee(this.state)
   }
   render () {
     const { name, image_url, location, rating, display_phone } = this.props.listings
@@ -52,11 +62,12 @@ class Details extends Component {
 }
 
 Details.propTypes = {
-  listings: PropTypes.object
+  listings: PropTypes.object,
+  dispatch: PropTypes.func
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { listings } = state
+  const { listings } = state.listingReducer
   const listing = _.find(listings, {id: ownProps.id})
   return {
     listings: listing

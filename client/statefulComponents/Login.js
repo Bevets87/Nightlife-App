@@ -1,12 +1,67 @@
 import React from 'react'
 import { Component } from 'react'
+import PropTypes from 'prop-types'
+
+import { connect } from 'react-redux'
+import { userLoginRequest, setErrors } from '../actions/userActions'
+
+import validateLoginInput from '../../server/shared/validations/login'
 
 import Navbar from '../statelessComponents/Navbar'
 
 import './Login.scss'
 
 class Login extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      email: '',
+      password: '',
+      clientErrors: {}
+    }
+    this.handleLogin = this.handleLogin.bind(this)
+    this.handleOnChange= this.handleOnChange.bind(this)
+  }
+  componentDidMount () {
+    this.props.dispatch(setErrors({}))
+  }
+  isValid () {
+    const { errors, isValid } = validateLoginInput(this.state)
+
+    if (!isValid) {
+      this.setState({
+        clientErrors: errors
+      })
+    }
+
+    return isValid
+  }
+  handleLogin (event) {
+    event.preventDefault()
+    this.setState({
+      clientErrors: {}
+    })
+    if (this.isValid()) {
+      this.props.dispatch(userLoginRequest(this.state))
+    }
+  }
+  handleOnChange (event) {
+    switch (event.target.id) {
+    case 'email':
+      this.setState({
+        email: event.target.value
+      })
+      break
+    case 'pwd':
+      this.setState({
+        password: event.target.value
+      })
+      break
+    }
+  }
   render () {
+    const { serverErrors } = this.props
+    const { clientErrors } = this.state
     return (
       <div>
         <Navbar />
@@ -15,17 +70,33 @@ class Login extends Component {
             <h1>Login</h1>
             <div className='form-group'>
               <label>Email address:</label>
-              <input type='email' className='form-control' id='email' />
+              {clientErrors.email && <span className='error'>{clientErrors.email}</span>}
+              <input type='email' className='form-control' id='email' onChange={this.handleOnChange} />
             </div>
             <div className='form-group'>
               <label>Password:</label>
-              <input type='password' className='form-control' id='pwd' />
+              {clientErrors.password && <span className='error'>{clientErrors.password}</span>}
+              <input type='password' className='form-control' id='pwd' onChange={this.handleOnChange} />
             </div>
-            <button type='submit' className='btn'>Login</button>
+            <button type='submit' className='btn' onClick={this.handleLogin}>Login</button>
           </form>
         </div>
+        {serverErrors.loginForm && <div className='error-container'><span className='error'>{serverErrors.loginForm}</span></div>}
       </div>
     )
   }
 }
-export default Login
+
+Login.propTypes = {
+  dispatch: PropTypes.func,
+  serverErrors: PropTypes.object
+}
+
+const mapStateToProps = (state) => {
+  const { serverErrors } = state.userReducer
+
+  return {
+    serverErrors
+  }
+}
+export default connect(mapStateToProps)(Login)

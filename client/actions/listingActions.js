@@ -18,7 +18,7 @@ export function setErrors(errors) {
 
 export const requestListings = (location) => {
   return function (dispatch) {
-    dispatch(setSearch(true))
+    dispatch(setSearch())
     return axios.post('/api', location)
     .then(
       response => {
@@ -26,7 +26,6 @@ export const requestListings = (location) => {
       })
     .catch(
       error => {
-        console.log(error.response.data)
         dispatch(setErrors(error.response.data))
       })
   }

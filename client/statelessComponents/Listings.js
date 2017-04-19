@@ -66,7 +66,7 @@ Listings.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  const { listings, isFetching, errors } = state
+  const { listings, isFetching, errors } = state.listingReducer
   return {
     listings,
     isFetching,

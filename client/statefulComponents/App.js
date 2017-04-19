@@ -38,7 +38,7 @@ App.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  const { listings } = state
+  const { listings } = state.listingReducer
 
   return {
     listings
