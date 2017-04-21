@@ -3,11 +3,11 @@ import { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
-import { userLoginRequest, setErrors } from '../actions/userActions'
+import { userLoginRequest, setErrors, setUser, setUserAuth } from '../actions/userActions'
 
 import validateLoginInput from '../../server/shared/validations/login'
 
-import Navbar from '../statelessComponents/Navbar'
+import Navbar from './Navbar'
 
 import './Login.scss'
 
@@ -42,7 +42,19 @@ class Login extends Component {
       clientErrors: {}
     })
     if (this.isValid()) {
-      this.props.dispatch(userLoginRequest(this.state))
+      this.props.dispatch(userLoginRequest(this.state)
+        .then(
+          response => {
+            localStorage.setItem('token', response.data.token)
+            this.props.dispatch(setUserAuth())
+            this.props.dispatch(setUser(response.data.email))
+            this.props.history.push('/')
+          })
+        .catch(
+          error => {
+            this.props.dispatch(setErrors(error.response.data.errors))
+          })
+      )
     }
   }
   handleOnChange (event) {
@@ -79,9 +91,9 @@ class Login extends Component {
               <input type='password' className='form-control' id='pwd' onChange={this.handleOnChange} />
             </div>
             <button type='submit' className='btn' onClick={this.handleLogin}>Login</button>
+            {serverErrors.loginForm && <div className='login-error-container'><span className='error'>{serverErrors.loginForm}</span></div>}
           </form>
         </div>
-        {serverErrors.loginForm && <div className='error-container'><span className='error'>{serverErrors.loginForm}</span></div>}
       </div>
     )
   }
@@ -89,7 +101,8 @@ class Login extends Component {
 
 Login.propTypes = {
   dispatch: PropTypes.func,
-  serverErrors: PropTypes.object
+  serverErrors: PropTypes.object,
+  history: PropTypes.object
 }
 
 const mapStateToProps = (state) => {

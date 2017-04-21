@@ -17,35 +17,9 @@ export function setErrors(errors) {
 }
 
 export function userRegistrationRequest(userData) {
-  return function(dispatch) {
-    return axios.post('/register', userData)
-      .then(
-        response => {
-          localStorage.setItem('token', response.data.token)
-          dispatch(setUserAuth())
-          dispatch(setUser(response.data.email))
-        })
-      .catch(
-        error => {
-          dispatch(setErrors(error.response.data.errors))
-        })
-  }
+  return axios.post('/register', userData)
 }
 
-
-
 export function userLoginRequest(userData) {
-  return function(dispatch) {
-    return axios.post('/login', userData)
-      .then(
-        response => {
-          localStorage.setItem('token', response.data.token)
-          dispatch(setUserAuth())
-          dispatch(setUser(response.data.email))
-        })
-      .catch(
-        error => {
-          dispatch(setErrors(error.response.data.errors))
-        })
-  }
+  return axios.post('/login', userData)
 }

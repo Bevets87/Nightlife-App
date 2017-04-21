@@ -3,11 +3,11 @@ import { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
-import { userRegistrationRequest, setErrors } from '../actions/userActions'
+import { userRegistrationRequest, setErrors, setUserAuth, setUser } from '../actions/userActions'
 
 import validateRegistrationInput from '../../server/shared/validations/register'
 
-import Navbar from '../statelessComponents/Navbar'
+import Navbar from './Navbar'
 
 import './Register.scss'
 
@@ -43,7 +43,19 @@ class Register extends Component {
       clientErrors: {}
     })
     if (this.isValid()) {
-      this.props.dispatch(userRegistrationRequest(this.state))
+      this.props.dispatch(userRegistrationRequest(this.state)
+        .then(
+          response => {
+            localStorage.setItem('token', response.data.token)
+            this.props.dispatch(setUserAuth())
+            this.props.dispatch(setUser(response.data.email))
+            this.props.history.push('/')
+          })
+        .catch(
+          error => {
+            this.props.dispatch(setErrors(error.response.data.errors))
+          })
+        )
     }
   }
   handleOnChange (event) {
@@ -89,10 +101,10 @@ class Register extends Component {
               {clientErrors.passwordConfirmation && <span className='error'>{clientErrors.passwordConfirmation}</span>}
               <input type='password' className='form-control' id='pwd-confirmation' onChange={this.handleOnChange} />
             </div>
-            <button type='submit' className='btn' onClick={this.handleRegister}>Register</button>
+            <button type='submit' className='btn' onClick={this.handleRegister}>Register</button>{serverErrors.registrationForm && <div className='register-error-container'><span className='error'>{serverErrors.registrationForm}</span></div>}
           </form>
         </div>
-        {serverErrors.registrationForm && <div className='error-container'><span className='error'>{serverErrors.registrationForm}</span></div>}
+
       </div>
     )
   }
@@ -100,7 +112,8 @@ class Register extends Component {
 
 Register.propTypes = {
   dispatch: PropTypes.func,
-  serverErrors: PropTypes.object
+  serverErrors: PropTypes.object,
+  history: PropTypes.object
 }
 
 const mapStateToProps = (state) => {

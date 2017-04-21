@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Barrio');
 
-.register-container {
+.login-container {
   position: absolute;
   width: 40%;
   z-index: 1;
@@ -41,18 +41,17 @@ label {
 
   .btn {
     background: white;
+    float: left;
   }
-}
 
-.error-container {
-  margin-top: 400px;
-
-  font-family: 'Barrio', cursive;
-  text-align: center;
-
+.login-error-container {
+ float: right;
+ height: auto;
+ margin-right: 20px;
   .error {
-
     font-size: 25px;
     color: red;
   }
+}
+
 }

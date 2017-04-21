@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { requestListings } from '../actions/listingActions'
 
-import Navbar from '../statelessComponents/Navbar'
+import Navbar from './Navbar'
 
 import './Home.scss'
 

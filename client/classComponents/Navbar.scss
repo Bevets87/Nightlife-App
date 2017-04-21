@@ -19,8 +19,8 @@ nav {
   .nav-util-container {
     float: right;
     color: white;
+    font-family: 'Sigmar One', cursive;
     .login {
-       font-family: 'Sigmar One', cursive;
        float: right;
        font-size: 20px;
        margin: 15px 10px;
@@ -28,7 +28,6 @@ nav {
        margin-left: 0;
      }
      .register {
-       font-family: 'Sigmar One', cursive;
        float: right;
        font-size: 20px;
        margin: 15px 10px;
@@ -36,11 +35,23 @@ nav {
        margin-right: 0;
      }
      .back {
-       font-family: 'Sigmar One', cursive;
        float: right;
        font-size: 25px;
        margin: 12.5px 10px;
        cursor: pointer;
+    }
+    .user {
+      float: right;
+      font-size: 20px;
+      margin: 15px 10px;
+    }
+    .logout {
+      float: right;
+      font-size: 20px;
+      margin: 15px 10px;
+      cursor: pointer;
+      color: darkgrey;
+      font-weight: bold;
     }
   }
 }

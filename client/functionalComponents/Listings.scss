@@ -18,12 +18,16 @@
        color: white;
        text-align: center;
      }
-
      h3 {
        font-family: 'Barrio', cursive;
        color: white;
        text-align: center;
      }
+    .confirmed {
+      color: lightgreen;
+      font-weight: bold;
+      
+    }
 
      img {
        width: inherit;
@@ -51,7 +55,7 @@
   height: 200px;
 }
 
-.loading-container {
+.listings-loading-container {
   position: absolute;
   background: rgba(0,0,0,0.7);
   width: 30%;
@@ -68,7 +72,7 @@
 
 }
 
-.error-container {
+.listings-error-container {
   position: absolute;
   background: rgba(0,0,0,0.7);
   width: 30%;

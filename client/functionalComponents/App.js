@@ -5,12 +5,12 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 
-import Home from './Home'
-import Login from './Login'
-import Register from './Register'
-import Listings from '../statelessComponents/Listings'
-import Details from './Details'
-import VideoBackground from '../statelessComponents/VideoBackground'
+import Home from '../classComponents/Home'
+import Login from '../classComponents/Login'
+import Register from '../classComponents/Register'
+import Listings from './Listings'
+import Details from '../classComponents/Details'
+import VideoBackground from './VideoBackground'
 
 const App = (props) => {
   const { listings } = props

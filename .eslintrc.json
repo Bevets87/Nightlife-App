@@ -31,7 +31,7 @@
             "error",
             "never"
         ],
-        "no-console": 0,
+        
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
         "react/forbid-prop-types": 0
