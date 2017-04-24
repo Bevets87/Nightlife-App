@@ -1,2 +1,4 @@
 node_modules
 npm-debug.log
+dist
+server/config.js
