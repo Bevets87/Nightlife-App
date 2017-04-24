@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken'
-import { JWTSECRET } from '../config'
 import Bars from '../models/Bars'
 import _ from 'lodash'
 
@@ -15,7 +14,7 @@ export const handle_create_bar = (req, res) => {
 
   const { bar_id, attendee, token } = req.body
 
-  jwt.verify(token, JWTSECRET, (err, decoded) => {
+  jwt.verify(token, process.env.JWTSECRET, (err, decoded) => {
     console.log(err)
     if (!err) {
       Bars.findOne({bar_id: bar_id}, (err, bar) => {

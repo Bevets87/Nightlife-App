@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
-import { JWTSECRET } from '../config'
 import bcrypt from 'bcrypt'
 import _ from 'lodash'
 
@@ -10,7 +9,7 @@ import validateRegistrationInput from '../shared/validations/register'
 import validateLoginInput from '../shared/validations/login'
 
 const createToken = function(username) {
-  return jwt.sign({user: username}, JWTSECRET ,{expiresIn: 60 * 60})
+  return jwt.sign({user: username}, process.env.JWTSECRET ,{expiresIn: 60 * 60})
 }
 
 export const handle_user_registration = function (req, res) {

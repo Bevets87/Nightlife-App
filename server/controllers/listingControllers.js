@@ -1,5 +1,4 @@
 import yelp from 'yelp-fusion'
-import { CLIENTID, CLIENTSECRET } from '../config'
 
 export const handle_get_listings = (req, res) => {
   const location = req.body.searchTerm
@@ -8,7 +7,7 @@ export const handle_get_listings = (req, res) => {
     location: location
   }
 
-  yelp.accessToken(CLIENTID, CLIENTSECRET).then(response => {
+  yelp.accessToken(process.env.CLIENTID, process.env.CLIENTSECRET).then(response => {
     const client = yelp.client(response.jsonBody.access_token)
 
     client.search(searchRequest)
