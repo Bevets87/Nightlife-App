@@ -3,27 +3,28 @@ import path from 'path'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 
-import webpack from 'webpack'
-import webpackMiddleware from 'webpack-dev-middleware'
-import webpackHotMiddleware from 'webpack-hot-middleware'
-import webpackConfig from '../webpack.config'
+if (process.NODE_ENV !== production) {
+  import webpack from 'webpack'
+  import webpackMiddleware from 'webpack-dev-middleware'
+  import webpackHotMiddleware from 'webpack-hot-middleware'
+  import webpackConfig from '../webpack.config'
+}
 
 import api from './routes/api'
 import user from './routes/user'
 
-import { PORT } from './config'
-
 let app = express()
+if (process.env.NODE_ENV !== 'production') {
+  const compiler = webpack(webpackConfig)
 
-const compiler = webpack(webpackConfig)
-
-app.use(webpackMiddleware(compiler, {
+  app.use(webpackMiddleware(compiler, {
   hot: true,
   publicPath: webpackConfig.output.publicPath,
   noInfo: true
-}))
+  }))
 
-app.use(webpackHotMiddleware(compiler))
+  app.use(webpackHotMiddleware(compiler))
+}
 
 app.use(bodyParser.json())
 
@@ -40,6 +41,6 @@ mongoose.connection.once('open',function(){
   console.log('Connection error:', error);
 });
 
-app.listen(PORT, () => {
-  console.log(`listening on localhost ${PORT}` )
+app.listen(process.env.PORT, () => {
+  console.log(`listening on localhost ${process.env.PORT}` )
 })

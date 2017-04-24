@@ -4,7 +4,9 @@
   "description": "An application for viewing bars in the area that friends will be at",
   "main": "./server/app.js",
   "scripts": {
-    "server": "nodemon --watch server --exec babel-node -- server/app.js"
+    "server": "nodemon --watch server --exec babel-node -- server/app.js",
+    "build": "webpack --config ./webpack.config.prod.js --progress --colors",
+    "start": "babel-node server/app.js"
   },
   "keywords": [
     "nighttime",
