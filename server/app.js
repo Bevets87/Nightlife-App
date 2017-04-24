@@ -3,10 +3,10 @@ import path from 'path'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 
-import webpack from 'webpack'
+/*import webpack from 'webpack'
 import webpackMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import webpackConfig from '../webpack.config.dev'
+import webpackConfig from '../webpack.config.dev'*/
 
 import api from './routes/api'
 import user from './routes/user'
@@ -29,7 +29,7 @@ app.use(bodyParser.json())
 app.use('/', user)
 app.use('/api', api)
 
-app.use('/*', express.static('client'))
+app.use('/*', express.static('dist'))
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/NightlifeApp');
 
