@@ -3,12 +3,10 @@ import path from 'path'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 
-if (process.NODE_ENV !== production) {
-  import webpack from 'webpack'
-  import webpackMiddleware from 'webpack-dev-middleware'
-  import webpackHotMiddleware from 'webpack-hot-middleware'
-  import webpackConfig from '../webpack.config'
-}
+import webpack from 'webpack'
+import webpackMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
+import webpackConfig from '../webpack.config.dev'
 
 import api from './routes/api'
 import user from './routes/user'
@@ -41,6 +39,6 @@ mongoose.connection.once('open',function(){
   console.log('Connection error:', error);
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`listening on localhost ${process.env.PORT}` )
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`listening on localhost ${process.env.PORT || 3000}` )
 })
