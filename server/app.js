@@ -4,10 +4,10 @@ import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import compression from 'compression'
 
-import webpack from 'webpack'
+/*import webpack from 'webpack'
 import webpackMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import webpackConfig from '../webpack.config.dev'
+import webpackConfig from '../webpack.config.dev'*/
 
 import api from './routes/api'
 import user from './routes/user'
@@ -24,6 +24,10 @@ if (process.env.NODE_ENV === 'development') {
   }))
 
   app.use(webpackHotMiddleware(compiler))
+}
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(compression())
 }
 app.use(express.static(path.join(__dirname, '../build' )))
 
