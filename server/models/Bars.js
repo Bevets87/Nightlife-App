@@ -5,7 +5,11 @@ const barSchema = new Schema({
   bar_id: String,
   attendees: [
     {
-      name: String
+      name: String,
+      createdAt: {
+        type: Date,
+        expires: 60 * 60 * 24
+      }
     }
   ]
 })

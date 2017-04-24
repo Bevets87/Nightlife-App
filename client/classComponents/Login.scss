@@ -3,13 +3,17 @@
 .login-container {
   position: absolute;
   width: 40%;
-  z-index: 1;
-  top: 100px;
+
+  top: 25vh;
   left: 30%;
   text-align: left;
   background: rgba(0,0,0,0.7);
   border-radius: 10px;
   font-family: 'Barrio', cursive;
+  @media (max-width: 768px) {
+    width: 90%;
+    left: 5%;
+  }
 
   h1 {
     color: white;
@@ -51,6 +55,7 @@ label {
   .error {
     font-size: 25px;
     color: red;
+
   }
 }
 

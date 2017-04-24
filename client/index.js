@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import store from './store/configureStore'
 import { getBars } from './actions/barActions'
 
-import App from './functionalComponents/App'
+import App from './classComponents/App'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.scss'

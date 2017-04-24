@@ -42,7 +42,7 @@ class Login extends Component {
       clientErrors: {}
     })
     if (this.isValid()) {
-      this.props.dispatch(userLoginRequest(this.state)
+      userLoginRequest(this.state)
         .then(
           response => {
             localStorage.setItem('token', response.data.token)
@@ -54,7 +54,7 @@ class Login extends Component {
           error => {
             this.props.dispatch(setErrors(error.response.data.errors))
           })
-      )
+
     }
   }
   handleOnChange (event) {

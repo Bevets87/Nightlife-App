@@ -26,7 +26,7 @@ const Listings = (props) => {
     return (
       <div>
         <Navbar />
-        <div className='.listings-error-container'>
+        <div className='listings-error-container'>
           <h1>{errors}</h1>
         </div>
       </div>
@@ -56,9 +56,9 @@ const Listings = (props) => {
               utilSpace = null
             }
             return (
-              <div key={id} className='col-md-3'>
+              <div key={id} className='col-md-3 col-sm-6 '>
                 <Link to={`details/${id}`}>
-                  <div className='col-md-12 listing-container'>
+                  <div className='col-md-12 col-sm-12  listing-container'>
                     <h1>{name}</h1>
                     {utilSpace}
                     <div className='listing-img-container'>

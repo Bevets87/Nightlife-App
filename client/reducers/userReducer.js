@@ -11,7 +11,7 @@ const setUserAuth = (state) => {
     {},
     state,
     {
-      isAuthenticated: !!localStorage.token,
+      isAuthenticated: localStorage.getItem('token') ? true : false,
       serverErrors: {}
     }
   )
@@ -35,7 +35,7 @@ const setErrors = (state, action) => {
     {
       serverErrors: action.serverErrors,
       user: null,
-      isAuthenticated: !!localStorage.token
+      isAuthenticated: localStorage.getItem('token') ? true : false
     }
   )
 }

@@ -10,6 +10,7 @@
 
   .listing-container {
     height: 300px;
+
     border: 2px solid white;
     border-radius: 10px;
     overflow-y: scroll;
@@ -26,12 +27,18 @@
     .confirmed {
       color: lightgreen;
       font-weight: bold;
-      
+
     }
 
      img {
-       width: inherit;
-       height: 200px;
+       width: 100%;
+       height: auto;
+       min-height: 200px;
+       @media (max-width: 768px) {
+         display: block;
+         margin: 0 auto;
+         width: 80%;
+       }
     }
 
      &::-webkit-scrollbar {
@@ -64,10 +71,19 @@
   text-align: center;
   border-radius: 10px;
 
+  @media (max-width: 768px) {
+    width: 90%;
+    left: 5%;
+  }
+
   h1 {
     color: white;
     font-family: 'Barrio', cursive;
     font-size: 70px;
+
+    @media (max-width: 768px) {
+      font-size: 50px;
+    }
   }
 
 }
@@ -80,6 +96,11 @@
   left: 35%;
   text-align: center;
   border-radius: 10px;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    left: 5%;
+  }
 
   h1 {
     color: white;

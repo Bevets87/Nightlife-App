@@ -36,14 +36,18 @@ class Details extends Component {
       this.setState({
         attendeesModal: modalBool
       })
+    } else {
+      alert('Login/register to use this feature!')
     }
   }
   handleGoing (event) {
     event.preventDefault()
     const { isAuthenticated, user } = this.props
     const { id } = this.props.listings
+
     if (isAuthenticated) {
-      this.props.dispatch(createBar({attendee: user, bar_id: id})
+      let token = localStorage.getItem('token')
+      createBar({attendee: user, bar_id: id, token: token})
         .then(
           () => {
             this.props.dispatch(getBars())
@@ -56,7 +60,8 @@ class Details extends Component {
           error => {
             alert(error.response.data)
           })
-        )
+    } else {
+      alert('Login/register to use this feature!')
     }
   }
   render () {
@@ -84,8 +89,8 @@ class Details extends Component {
           <h1>{name}</h1>
           <img className='img-responsive' src={image_url} />
           <div className='row'>
-            <div className='col-xs-4'><h3 className='attendees' onClick={this.handleAttendeesModal}>Click to see who is going!</h3></div>
-            <div className='col-xs-4'>
+            <div className='col-sm-4'><h3 className='attendees' onClick={this.handleAttendeesModal}>Click to see who is going!</h3></div>
+            <div className='col-sm-4'>
               <div className='location-container'>
                 <h3>{`${address1}`}</h3>
                 <h3>{`${city}, ${state}`}</h3>
@@ -93,7 +98,7 @@ class Details extends Component {
                 <h3>Rating: {rating}</h3>
               </div>
             </div>
-            <div className='col-xs-4'>
+            <div className='col-sm-4'>
               {isGoingUtilSpace}
             </div>
           </div>

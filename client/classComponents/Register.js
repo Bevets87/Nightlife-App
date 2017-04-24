@@ -3,7 +3,7 @@ import { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
-import { userRegistrationRequest, setErrors, setUserAuth, setUser } from '../actions/userActions'
+import { userRegistrationRequest, setErrors, setUser, setUserAuth } from '../actions/userActions'
 
 import validateRegistrationInput from '../../server/shared/validations/register'
 
@@ -43,7 +43,7 @@ class Register extends Component {
       clientErrors: {}
     })
     if (this.isValid()) {
-      this.props.dispatch(userRegistrationRequest(this.state)
+      userRegistrationRequest(this.state)
         .then(
           response => {
             localStorage.setItem('token', response.data.token)
@@ -51,11 +51,10 @@ class Register extends Component {
             this.props.dispatch(setUser(response.data.email))
             this.props.history.push('/')
           })
-        .catch(
-          error => {
-            this.props.dispatch(setErrors(error.response.data.errors))
-          })
-        )
+      .catch(
+        error => {
+          this.props.dispatch(setErrors(error.response.data.errors))
+        })
     }
   }
   handleOnChange (event) {
