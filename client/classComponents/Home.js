@@ -3,7 +3,7 @@ import { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
-import { requestListings } from '../actions/listingActions'
+import { requestListings, setListingErrors  } from '../actions/listingActions'
 
 import Navbar from './Navbar'
 
@@ -18,6 +18,9 @@ class Home extends Component {
     this.handleInput = this.handleInput.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
+  componentDidMount () {
+    this.props.dispatch(setListingErrors(null))
+  }
   handleInput (event) {
     this.setState({
       searchTerm: event.target.value
@@ -25,7 +28,6 @@ class Home extends Component {
   }
   handleClick (event) {
     event.preventDefault()
-
     if(this.state.searchTerm.length > 0) {
       this.props.dispatch(requestListings(this.state))
       this.props.history.push('/listings')

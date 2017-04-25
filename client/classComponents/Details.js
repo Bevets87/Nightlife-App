@@ -30,11 +30,10 @@ class Details extends Component {
   }
   handleAttendeesModal (event) {
     event.preventDefault()
-    const { isAuthenticated } = this.props
-    if (isAuthenticated) {
-      let modalBool = this.state.attendeesModal ? false : true
+    const { isAuthenticated, bars } = this.props
+    if (isAuthenticated && bars.attendees.length > 0) {
       this.setState({
-        attendeesModal: modalBool
+        attendeesModal: this.state.attendeesModal ? false : true
       })
     } else {
       alert('Login/register to use this feature!')

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import { connect } from 'react-redux'
-import { setUser, setUserAuth } from '../actions/userActions'
+import { setUser } from '../actions/userActions'
 
 import Home from './Home'
 import Login from './Login'
@@ -20,8 +20,7 @@ class App extends Component {
   }
   componentDidMount () {
     localStorage.removeItem('token')
-    this.props.dispatch(setUserAuth())
-    this.props.dispatch(setUser(null))
+    this.props.dispatch(setUser(null, false))
   }
   render () {
     const { listings } = this.props

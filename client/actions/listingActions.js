@@ -1,24 +1,24 @@
 import axios from 'axios'
 
 export const SET_LISTINGS = 'SET_LISTINGS'
-export const SET_SEARCH = 'SET_SEARCH'
-export const SET_ERRORS = 'SET_ERRORS'
+export const SET_LISTING_SEARCH = 'SET_LISTING_SEARCH'
+export const SET_LISTING_ERRORS = 'SET_LISTING_ERRORS'
 
 export function setListings(listings) {
   return {type: SET_LISTINGS, listings: listings}
 }
 
-export function setSearch() {
-  return {type: SET_SEARCH}
+export function setListingSearch() {
+  return {type: SET_LISTING_SEARCH}
 }
 
-export function setErrors(errors) {
-  return {type: SET_ERRORS, errors: errors}
+export function setListingErrors(listingErrors) {
+  return {type: SET_LISTING_ERRORS, listingErrors: listingErrors}
 }
 
 export const requestListings = (location) => {
   return function (dispatch) {
-    dispatch(setSearch())
+    dispatch(setListingSearch())
     return axios.post('/api', location)
     .then(
       response => {
@@ -26,7 +26,7 @@ export const requestListings = (location) => {
       })
     .catch(
       error => {
-        dispatch(setErrors(error.response.data))
+        dispatch(setListingErrors(error.response.data))
       })
   }
 }

@@ -3,7 +3,7 @@ import { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
-import { userRegistrationRequest, setErrors, setUser, setUserAuth } from '../actions/userActions'
+import { userRegistrationRequest, setErrors, setUser } from '../actions/userActions'
 
 import validateRegistrationInput from '../../server/shared/validations/register'
 
@@ -47,8 +47,7 @@ class Register extends Component {
         .then(
           response => {
             localStorage.setItem('token', response.data.token)
-            this.props.dispatch(setUserAuth())
-            this.props.dispatch(setUser(response.data.email))
+            this.props.dispatch(setUser(response.data.email, true))
             this.props.history.push('/')
           })
       .catch(
@@ -100,7 +99,8 @@ class Register extends Component {
               {clientErrors.passwordConfirmation && <span className='error'>{clientErrors.passwordConfirmation}</span>}
               <input type='password' className='form-control' id='pwd-confirmation' onChange={this.handleOnChange} />
             </div>
-            <button type='submit' className='btn' onClick={this.handleRegister}>Register</button>{serverErrors.registrationForm && <div className='register-error-container'><span className='error'>{serverErrors.registrationForm}</span></div>}
+            <button type='submit' className='btn' onClick={this.handleRegister}>Register</button>
+            {serverErrors.registrationForm && <div className='register-error-container'><span className='error'>{serverErrors.registrationForm}</span></div>}
           </form>
         </div>
 

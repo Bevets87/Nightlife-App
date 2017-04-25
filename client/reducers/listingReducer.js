@@ -1,4 +1,4 @@
-import { SET_LISTINGS, SET_SEARCH, SET_ERRORS } from '../actions/listingActions'
+import { SET_LISTINGS, SET_LISTING_SEARCH, SET_LISTING_ERRORS } from '../actions/listingActions'
 
 const DEFAULT_STATE = {
   listings: [],
@@ -18,7 +18,7 @@ const setListings = (state, action) => {
   )
 }
 
-const setSearch = (state) => {
+const setListingSearch = (state) => {
   return Object.assign(
     {},
     state,
@@ -30,14 +30,14 @@ const setSearch = (state) => {
   )
 }
 
-const setErrors = (state, action) => {
+const setListingErrors = (state, action) => {
   return Object.assign(
     {},
     state,
     {
       listings: [],
       isFetching: false,
-      errors: action.errors
+      listingErrors: action.listingErrors
     }
   )
 }
@@ -46,12 +46,12 @@ const setErrors = (state, action) => {
 
 const listingReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-  case SET_SEARCH:
-    return setSearch(state, action)
+  case SET_LISTING_SEARCH:
+    return setListingSearch(state, action)
   case SET_LISTINGS:
     return setListings(state, action)
-  case SET_ERRORS:(state, action)
-    return setErrors(state, action)
+  case SET_LISTING_ERRORS:(state, action)
+    return setListingErrors(state, action)
   default:
     return state
   }

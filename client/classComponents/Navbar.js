@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
 
 import { connect } from 'react-redux'
-import { setUserAuth, setUser } from '../actions/userActions'
+import { setUser } from '../actions/userActions'
 
 import './Navbar.scss'
 
@@ -21,8 +21,7 @@ class Navbar extends Component {
   profileLogout (event) {
     event.preventDefault()
     localStorage.removeItem('token')
-    this.props.dispatch(setUserAuth())
-    this.props.dispatch(setUser(null))
+    this.props.dispatch(setUser(null, false))
     this.props.history.push('/')
     this.setState({
       toggledDropDown: false

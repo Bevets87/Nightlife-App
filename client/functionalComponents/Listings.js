@@ -12,7 +12,7 @@ import Navbar from '../classComponents/Navbar'
 import './Listings.scss'
 
 const Listings = (props) => {
-  const { isFetching, listings, errors} = props
+  const { isFetching, listings, listingErrors, bars, user } = props
   if (isFetching) {
     return (
       <div>
@@ -22,16 +22,16 @@ const Listings = (props) => {
         </div>
       </div>
     )
-  } else if (errors) {
+  } else if (listingErrors) {
     return (
       <div>
-        <Navbar />
         <div className='listings-error-container'>
-          <h1>{errors}</h1>
+          <h1>{listingErrors}</h1>
+          <Link to='/'><h3>Click to search again.</h3></Link>
         </div>
       </div>
     )
-  }{
+  } else {
     return (
       <div>
         <Navbar />
@@ -39,16 +39,15 @@ const Listings = (props) => {
           <div className='row'>
           {listings.map( listing => {
             const { name, image_url, id } = listing
-            const { bars, user } = props
             let bar = _.find(bars, {bar_id: id})
             let utilSpace
             if (bar) {
               const { attendees } = bar
-              let barWithUser = _.find(attendees, {name: user})
-              if (barWithUser) {
+              const userIsAttendee = _.find(attendees, {name: user})
+              if (userIsAttendee) {
                 utilSpace = <h3 className='confirmed'>Confirmed!</h3>
-              } else if (bar.attendees.length > 0) {
-                utilSpace = <h3>{bar.attendees.length} going!</h3>
+              } else if (attendees.length > 0) {
+                utilSpace = <h3>{attendees.length} going!</h3>
               } else {
                 utilSpace = null
               }
@@ -80,22 +79,22 @@ const Listings = (props) => {
 Listings.propTypes = {
   listings: PropTypes.array,
   isFetching: PropTypes.bool,
-  errors: PropTypes.object,
   bars: PropTypes.array,
-  user: PropTypes.string
+  user: PropTypes.string,
+  listingErrors: PropTypes.string
 }
 
 const mapStateToProps = (state) => {
-  const { listings, isFetching, errors } = state.listingReducer
+  const { listings, isFetching, listingErrors } = state.listingReducer
   const { bars } = state.barReducer
   const { user } = state.userReducer
 
   return {
     listings,
     isFetching,
-    errors,
     bars,
-    user
+    user,
+    listingErrors
   }
 }
 

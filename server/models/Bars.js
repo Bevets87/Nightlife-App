@@ -8,7 +8,8 @@ const barSchema = new Schema({
       name: String,
       createdAt: {
         type: Date,
-        expires: 60 * 60 * 24
+        expires: '24h',
+        default: Date.now
       }
     }
   ]
