@@ -1,5 +1,5 @@
 import yelp from 'yelp-fusion'
-import { CLIENTID, CLIENTSECRET } from '../../env'
+import { CLIENT_ID, CLIENT_SECRET } from '../../env'
 
 export const handle_get_listings = (req, res) => {
   const location = req.body.searchTerm
@@ -8,7 +8,7 @@ export const handle_get_listings = (req, res) => {
     location: location
   }
 
-  yelp.accessToken(process.env.CLIENTID || CLIENTID, process.env.CLIENTSECRET || CLIENTSECRET).then(response => {
+  yelp.accessToken(process.env.CLIENT_ID || CLIENT_ID, process.env.CLIENT_SECRET || CLIENT_SECRET).then(response => {
     const client = yelp.client(response.jsonBody.access_token)
 
     client.search(searchRequest)

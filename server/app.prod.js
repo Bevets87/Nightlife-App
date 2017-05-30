@@ -4,31 +4,13 @@ import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import compression from 'compression'
 
-//import webpack from 'webpack'
-//import webpackMiddleware from 'webpack-dev-middleware'
-//import webpackHotMiddleware from 'webpack-hot-middleware'
-//import webpackConfig from '../webpack.config.dev'
-
 import api from './routes/api'
 import user from './routes/user'
 
 let app = express()
 
-if (process.env.NODE_ENV === 'development') {
-  const compiler = webpack(webpackConfig)
+app.use(compression())
 
-  app.use(webpackMiddleware(compiler, {
-    hot: true,
-    publicPath: webpackConfig.output.publicPath,
-    noInfo: true
-  }))
-
-  app.use(webpackHotMiddleware(compiler))
-}
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(compression())
-}
 app.use(express.static(path.join(__dirname, '../build' )))
 
 app.use(bodyParser.json())

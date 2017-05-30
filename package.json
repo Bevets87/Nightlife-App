@@ -2,13 +2,13 @@
   "name": "nightlife-app",
   "version": "1.0.0",
   "description": "An application for viewing bars in the area that friends will be at",
-  "main": "./server/app.js",
+  "main": "./server/app.prod.js",
   "scripts": {
     "remove-build": "node_modules/.bin/rimraf ./build",
-    "server": "nodemon --watch server --exec babel-node -- ./server/app.js",
+    "dev": "nodemon --watch server --exec babel-node -- ./server/app.dev.js",
     "build": "webpack --config ./webpack.config.prod.js -p --progress --colors",
-    "prod": "cross-env NODE_ENV=production babel-node ./server/app.js",
-    "start": "babel-node ./server/app.js"
+    "prod": "cross-env NODE_ENV=production babel-node ./server/app.prod.js",
+    "start": "babel-node ./server/app.prod.js"
   },
   "keywords": [
     "nighttime",
