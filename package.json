@@ -7,7 +7,7 @@
     "remove-build": "node_modules/.bin/rimraf ./build",
     "dev": "nodemon --watch server --exec babel-node -- ./server/app.dev.js",
     "build": "webpack --config ./webpack.config.prod.js -p --progress --colors",
-    "prod": "cross-env NODE_ENV=production babel-node ./server/app.prod.js",
+    "prod": "babel-node ./server/app.prod.js",
     "start": "babel-node ./server/app.prod.js"
   },
   "keywords": [
