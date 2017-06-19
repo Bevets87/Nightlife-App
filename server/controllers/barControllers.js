@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import Bars from '../models/Bars'
 import _ from 'lodash'
-import { JWT_SECRET } from '../../env'
+import { JWT_SECRET } from '../config'
 
 export const handle_get_bars = (req, res) => {
   Bars.find((err, bars) => {

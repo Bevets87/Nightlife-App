@@ -1,5 +1,5 @@
 import yelp from 'yelp-fusion'
-import { CLIENT_ID, CLIENT_SECRET } from '../../env'
+import { CLIENT_ID, CLIENT_SECRET } from '../config'
 
 export const handle_get_listings = (req, res) => {
   const location = req.body.searchTerm

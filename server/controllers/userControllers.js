@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import _ from 'lodash'
-import { JWT_SECRET } from '../../env'
+import { JWT_SECRET } from '../config'
 
 import User from '../models/User'
 
