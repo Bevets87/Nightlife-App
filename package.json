@@ -7,7 +7,7 @@
     "build": "cross-env NODE_ENV=production webpack -p",
     "dev": "cross-env NODE_ENV=development nodemon --exec babel-node --watch webpack.config.babel.js --watch server index.js",
     "prod": "cross-env NODE_ENV=production cross-env BABEL_ENV=node nodemon --exec babel-node index.js",
-    "start": "cross-env NODE_ENV=production cross-env BABEL_ENV=node babel-node index.js",
+    "start": "BABEL_ENV=node babel-node index.js",
     "test:client": "cross-env NODE_ENV=testing jest --config test/client/jest.config.js --watch --runInBand",
     "test:server": "cross-env NODE_ENV=testing jest --config test/server/jest.config.js --watch --runInBand",
     "test:clear": "jest --clearCache"
