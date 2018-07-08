@@ -1,0 +1,113 @@
+@import '../abstracts/mixins';
+@import '../base/typography';
+@import '../base/colors';
+@mixin search-bar {
+    @include size(100vw, 100vh);
+    @include flex(column, center, center);
+    padding-top: 5rem;
+    position: relative;
+    z-index: 10;
+    background-color: $color-opaque-light-black;
+    overflow-y: hidden;
+}
+
+@mixin search-bar__title {
+    @include border(0.2rem, solid, $color-white, 0);
+    text-align: center;
+    background: $color-opaque-light-white;
+    width: 95vw;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border-bottom: none;
+    h1 {
+        color: $color-black;
+        font-size: 5rem;
+    }
+}
+
+@mixin search-bar__box {
+    @include border(0.2rem, solid, $color-white, 0);
+    @include flex(row, space-between, center);
+    background: $color-opaque-medium-black;
+    width: 95vw;
+    border-top: none;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    .search-icon {
+        font-size: 2.5rem;
+        color: $color-white;
+    }
+    input {
+        @include size(80%, auto);
+        font-size: 3rem;
+        text-align: left;
+        background: none;
+        outline: none;
+        border: none;
+        font-family: inherit;
+        color: $color-white;
+        &::placeholder {
+            font-family: inherit;
+            color: $color-white;
+            font-size: 3rem;
+        }
+    }
+}
+
+@include respond(phone) {
+    .search-bar {
+        @include search-bar;
+        &__title {
+            @include search-bar__title;
+        }
+        &__box {
+            @include search-bar__box;
+        }
+    }
+}
+
+@include respond(tablet) {
+    .search-bar {
+        &__title {
+            width: 70vw;
+            h1 {
+                font-size: 5rem;
+            }
+        }
+        &__box {
+            width: 70vw;
+            .search-icon {
+                font-size: 3rem;
+            }
+            input {
+                font-size: 3rem;
+                &::placeholder {
+                    font-size: 3rem;
+                }
+            }
+        }
+    }
+}
+
+@include respond(desktop) {
+    .search-bar {
+        &__title {
+            width: 60vw;
+            h1 {
+                font-size: 7rem;
+            }
+        }
+        &__box {
+            width: 60vw;
+            .search-icon {
+                font-size: 4rem;
+            }
+            input {
+                font-size: 4rem;
+                &::placeholder {
+                    font-size: 4rem;
+                }
+            }
+        }
+    }
+}

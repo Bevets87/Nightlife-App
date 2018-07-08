@@ -1,0 +1,59 @@
+@import '../abstracts/mixins';
+@import '../base/colors';
+@mixin error {
+    @include size(100vw, 100vh);
+    @include flex(row, center, center);
+    @include paddingY(5rem, 0);
+    position: relative;
+    z-index: 10;
+    background-color: $color-opaque-light-black;
+}
+
+@mixin error__box {
+    @include size(95vw, auto);
+    @include border(0.2rem, solid, $color-red, 1rem);
+    background-color: $color-opaque-medium-black;
+    text-align: center;
+    h1 {
+        color: $color-red;
+        font-size: 4rem;
+    }
+    button {
+        @include border(0.2rem, solid, $color-red, 1rem);
+        font-family: inherit;
+        font-size: 4rem;
+        color: $color-white;
+        background-color: $color-red;
+    }
+}
+
+@include respond(phone) {
+    .error {
+        @include error;
+        &__box {
+            @include error__box;
+        }
+    }
+}
+
+@include respond(tablet) {
+    .error {
+        &__box {
+            @include size(70vw, auto);
+        }
+    }
+}
+
+@include respond(desktop) {
+    .error {
+        &__box {
+            @include size(60vw, auto);
+            h1 {
+                font-size: 6rem;
+            }
+            button {
+                font-size: 6rem;
+            }
+        }
+    }
+}

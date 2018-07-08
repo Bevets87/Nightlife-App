@@ -1,0 +1,44 @@
+@import './base/typography';
+@import './base/colors';
+
+@mixin button-base {
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+}
+
+@mixin anchor-base {
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    overflow-x: hidden;
+    box-sizing: border-box;
+    font-family: $font-family-main;
+    color: $color-white;
+}
+
+a {
+    @include anchor-base;
+}
+
+button {
+    @include button-base;
+}

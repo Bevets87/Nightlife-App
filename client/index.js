@@ -1,18 +1,38 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-
+import { applyMiddleware, createStore } from 'redux'
+import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import store from './store/configureStore'
-import { getBars } from './actions/barActions'
+import reducers from './reducers'
+import reduxThunk from 'redux-thunk'
+import {  getMe  } from './actions/auth'
 
-import App from './classComponents/App'
+import App from './components/App'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './index.scss'
+import './styles/index.scss'
+import './index.html'
 
-store.dispatch(getBars())
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore)
+const store = createStoreWithMiddleware(reducers)
 
-ReactDOM.render (
-  <Provider store={store}>
-    <App />
-  </Provider>, document.getElementById('app'))
+store.dispatch(getMe())
+  .then(() => {
+    ReactDOM.render(
+      <Provider store={store} >
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+      ,
+      document.getElementById('app')
+    )
+  })
+
+
+
+
+
+
+
+
+

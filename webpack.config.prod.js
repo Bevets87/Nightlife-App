@@ -1,67 +1,57 @@
-const path = require('path')
 const webpack = require('webpack')
+const path = require('path')
+
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
+const UglifyJSWebpackPlugin = require('uglifyjs-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
-
-  entry: [
-    path.resolve(__dirname, 'client') + '/index.js'
-  ],
+  entry: {
+    main: path.join(__dirname, 'client'),
+  },
   output: {
     path: path.join(__dirname, 'build'),
-    publicPath: '/',
-    filename: 'bundle.js'
+    filename: 'js/[name].[chunkHash].js',
+    publicPath: '/'
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    }),
-    new webpack.NoEmitOnErrorsPlugin()
-
-  ],
+  mode: 'production',
+  devtool: 'none',
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        include: path.resolve(__dirname, 'client'),
-        loaders: ['react-hot-loader','babel-loader', 'eslint-loader']
-      },
-      {
-        test: /\.s?css$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader']
-      },
-      {
-        test: /\.png$/,
-        loader: 'url-loader?limit=100000'
-      },
-      {
-        test: /\.jpg$/,
-        loader: 'file-loader'
-      },
-      {
-        test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
-      },
-      {
-        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
-      },
-      {
-        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader'
-      },
-      {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
-      },
-      {
-        test: /\.mp4$/,
-        loader: 'url-loader?limit=10000&mimetype=video/mp4'
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+          }
+        ]
       }
     ]
   },
-  resolve: {
-    extensions: ['.js', '.json', '.jsx']
-  }
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'initial',
+        },
+      },
+    },
+    runtimeChunk: {
+      name: 'manifest',
+    },
+  },
+  plugins: [
+    new OptimizeCSSAssetsWebpackPlugin(),
+    new MiniCSSExtractPlugin({
+      filename: 'css/[name].[contentHash].css',
+    }),
+    new UglifyJSWebpackPlugin(),
+    new BundleAnalyzerPlugin()
+
+  ]
+
 }

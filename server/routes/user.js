@@ -1,10 +1,12 @@
 import express from 'express'
+import { signup, signin, getMe } from '../controllers/user'
+import { requireAuth } from '../middleware/auth'
 
-import { handle_user_registration, handle_user_login} from '../controllers/userControllers'
+const router = express.Router()
 
-let router = express.Router()
+router.post('/', signup)
+router.post('/signin', signin)
 
-router.post('/register', handle_user_registration)
-router.post('/login', handle_user_login)
+router.get('/me', requireAuth, getMe)
 
-export default router
+export default router 

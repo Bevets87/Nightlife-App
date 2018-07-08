@@ -1,0 +1,9 @@
+@import '../base/typography';
+@import '../base/colors';
+
+h1 {
+    color: $color-white;
+    font-family: $font-family-main;
+    font-size: 6rem;
+}
+        

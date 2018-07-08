@@ -1,0 +1,82 @@
+@import '../abstracts/mixins';
+@import '../base/colors';
+@include respond(phone) {
+    .bar {
+        
+        @include paddingY(1rem, 1rem);
+        @include flex(column, space-around, center);
+        @include border(0.1rem, solid, $color-white, 0.5rem);
+        background: $color-opaque-light-black;
+        text-align: center;
+        img {
+            @include size(auto, 16rem);
+            border-radius: 1rem;
+        }
+        &__name {
+            font-size: 4rem;
+            font-weight: bold;
+        }
+        &__rating {
+            font-size: 2rem;
+        }
+        button {
+            margin: 0.2rem;
+            font-family: inherit;
+            font-size: 3rem;
+        }
+        &__going {
+            @include border(0.2rem, solid, $color-black, 1rem);
+            color: $color-black;
+            background: $color-green;
+        }
+        &__none {
+            @include border(0.2rem, solid, $color-black, 1rem);
+            color: $color-black;
+            background: $color-white;
+        }
+        &__add {
+            @include border(0.2rem, solid, $color-green, 1rem);
+            color: $color-green;
+        }
+        &__remove {
+            @include border(0.2rem, solid, $color-red, 1rem);
+            color: $color-red;
+        }
+    }
+}
+
+@include respond(tablet) {
+    .bar {
+        @include paddingY(0, 0);
+        @include flex(row, space-between, center);
+        img {
+            @include size(auto, 12rem);
+        }
+        &__name {
+            font-size: 3rem;
+        }
+        &__rating {
+            font-size: 2rem;
+        }
+        button {
+            font-size: 3rem;
+        }
+    }
+}
+
+@include respond(desktop) {
+    .bar {
+        img {
+            @include size(auto, 16rem);
+        }
+        &__name {
+            font-size: 5rem;
+        }
+        &__rating {
+            font-size: 3rem;
+        }
+        button {
+            font-size: 4rem;
+        }
+    }
+}

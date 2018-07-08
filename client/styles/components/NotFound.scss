@@ -1,0 +1,52 @@
+@import '../base/colors';
+@import '../abstracts/mixins';
+@mixin not-found {
+    @include size(100vw, 100vh);
+    @include flex(row, center, center);
+    @include paddingY(5rem, 0);
+    position: relative;
+    z-index: 10;
+    background-color: $color-opaque-light-black;
+    overflow: hidden;
+}
+
+@mixin not-found__box {
+    @include size(95vw, auto);
+    @include border(0.1rem, solid, $color-red, 2rem);
+    background: $color-opaque-dark-black;
+    padding: 2.5rem;
+    color: $color-red;
+    text-align: center;
+    h1 {
+        font-size: 5rem;
+    }
+}
+
+@include respond(phone) {
+    .not-found {
+        @include not-found;
+        &__box {
+            @include not-found__box;
+        }
+    }
+}
+
+@include respond(tablet) {
+    .not-found {
+        &__box {
+            @include size(70vw, auto);
+            h1 {
+                font-size: 6rem;
+            }
+        }
+    }
+}
+
+@include respond(desktop) {
+    .not-found {
+        &__box {
+            @include size(60vw, auto);
+        }
+        
+    }
+}

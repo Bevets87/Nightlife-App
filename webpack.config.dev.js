@@ -1,64 +1,37 @@
-const path = require ('path')
 const webpack = require('webpack')
+const path = require('path')
 
 module.exports = {
-  devtool: 'eval-source-map',
   entry: [
-    'webpack-hot-middleware/client?reload=true',
-    path.resolve(__dirname, 'client') + '/index.js'
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+    path.join(__dirname, 'client', 'index.js')
   ],
   output: {
-    path: '/',
-    publicPath: '/',
-    filename: 'bundle.js'
+    path: path.join(__dirname, 'build'),
+    filename: 'js/[name].[hash].js',
+    publicPath: '/'
   },
-plugins: [
-   new webpack.NoEmitOnErrorsPlugin(),
-   new webpack.optimize.OccurrenceOrderPlugin(),
-   new webpack.HotModuleReplacementPlugin()
- ],
-module: {
-    loaders: [
+  mode: 'development',
+  devtool: 'inline-source-map',
+  module: {
+    rules: [
       {
         test: /\.js$/,
-        include: path.resolve(__dirname, 'client'),
-        loaders: ['react-hot-loader','babel-loader', 'eslint-loader']
-      },
-      {
-        test: /\.s?css$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader']
-      },
-      {
-        test: /\.png$/,
-        loader: 'url-loader?limit=100000'
-      },
-      {
-        test: /\.jpg$/,
-        loader: 'file-loader'
-      },
-      {
-        test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
-      },
-      {
-        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
-      },
-      {
-        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file-loader'
-      },
-      {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
-      },
-      {
-        test: /\.mp4$/,
-        loader: 'url-loader?limit=10000&mimetype=video/mp4'
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+          {
+            loader: 'eslint-loader'
+          }
+        ]
       }
     ]
   },
-  resolve: {
-    extensions: ['.js', '.json', '.jsx']
-  }
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin()
+  ]
 }
+

@@ -1,17 +1,57 @@
 import mongoose from 'mongoose'
-const Schema = mongoose.Schema
+import config from '../../config'
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    required: true
+    required: [ true, 'Email or password is required' ],
+    unique: true
   },
   password: {
     type: String,
-    required: true
+    required: [ true, 'Email or password is required' ] 
+  },
+  createdAt: {
+    type: Date,
+    expires: '48h',
+    default: Date.now
   }
 })
 
-const User = mongoose.model('user', userSchema)
+userSchema.pre('save', function(next) {
+  this.hashPassword(this.password)
+    .then(hash => {
+      this.password = hash 
+      next()
+    })
+    .catch(error => next(error))
+})
 
-export default User
+userSchema.methods.generateAuthToken = function() {
+  return jwt.sign({ _id: this._id }, config.jwt.secret, { expiresIn: config.jwt.expiration })
+}
+
+userSchema.methods.checkPassword = function(password) {
+  return bcrypt.compare(password, this.password)
+}
+
+userSchema.methods.hashPassword = function(password) {
+  return bcrypt.genSalt(10)
+    .then(salt => bcrypt.hash(password, salt))
+}
+
+userSchema.methods.toClient = function() {
+  return this.email 
+}
+
+export default mongoose.model('User', userSchema)
+
+
+
+
+
+
+
+
