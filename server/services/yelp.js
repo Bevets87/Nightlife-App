@@ -1,6 +1,6 @@
 const yelp = require('yelp-fusion')
 const validate = require('../middleware/validate')
-const Joi = require('Joi')
+const Joi = require('joi')
 const { take, pick } = require('lodash')
 const config = require('../../config')
 
