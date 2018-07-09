@@ -1,10 +1,10 @@
-import express from 'express'
-import path from 'path'
-import db from './db'
-import middleware from './middleware'
-import webpackMiddleware from './middleware/webpack'
-import routes from './routes'
-import errorware from './errorware'
+const express = require('express')
+const path = require('path')
+const db = require('./db')
+const middleware = require('./middleware')
+const webpackMiddleware = require('./middleware/webpack')
+const routes = require('./routes')
+const errorware = require('./errorware')
 
 const app = express()
 
@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../build')))
+  app.use(express.static(path.join(__dirname, '../client')))
 }
 
 if (!(process.env.NODE_ENV === 'testing')) {
@@ -24,7 +24,7 @@ middleware(app)
 routes(app)
 errorware(app)
 
-export default app 
+module.exports = app
   
 
 

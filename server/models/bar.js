@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
-import patronSchema from './patron'
+const mongoose = require('mongoose')
+const patronSchema = require('./patron')
 
 
 const barSchema = new mongoose.Schema({
@@ -34,7 +34,7 @@ barSchema.statics.removePatron = function(patron) {
     .then(bar => bar.patrons.length ? Promise.resolve(bar) : bar.remove())
 }
 
-const Bar = mongoose.model('Bar', barSchema)
+module.exports = mongoose.model('Bar', barSchema)
 
-export default Bar 
+
 

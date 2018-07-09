@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken'
-import config from '../../config'
+const jwt = require('jsonwebtoken')
+const config = require('../../config')
 
-export const _hasToken = (req, res) => new Promise((resolve, reject) => {
+const _hasToken = (req, res) => new Promise((resolve, reject) => {
   const token = req.headers.authorization
   if (token) {
     req.token = token
@@ -11,7 +11,7 @@ export const _hasToken = (req, res) => new Promise((resolve, reject) => {
   }  
 })
 
-export const _validateToken = (req, res) => new Promise((resolve, reject) => {
+const _validateToken = (req, res) => new Promise((resolve, reject) => {
   jwt.verify(req.token, config.jwt.secret, (error, decoded) => {
     if (error) { 
       return reject({ ...error, message: 'Invalid token' }) 
@@ -23,7 +23,7 @@ export const _validateToken = (req, res) => new Promise((resolve, reject) => {
   })
 })
 
-export const requireAuth = (!(process.env.NODE_ENV === 'testing')) 
+const requireAuth = (!(process.env.NODE_ENV === 'testing')) 
   ? [ 
     (req, res, next) => {
       _hasToken(req, res)
@@ -36,4 +36,9 @@ export const requireAuth = (!(process.env.NODE_ENV === 'testing'))
         .catch((error) => res.status(400).json(error))
     }
   ] : (req, res, next) => next()
+
+
+module.exports = {
+  _hasToken, _validateToken, requireAuth
+}
  

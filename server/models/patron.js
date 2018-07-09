@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const patronSchema = new mongoose.Schema({
   email: {
@@ -12,4 +12,4 @@ const patronSchema = new mongoose.Schema({
   }
 })
 
-export default patronSchema 
+module.exports = patronSchema

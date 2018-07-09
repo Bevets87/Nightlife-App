@@ -1,7 +1,7 @@
-import mongoose from 'mongoose'
-import config from '../../config'
-import jwt from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
+const mongoose = require('mongoose')
+const config = require('../../config')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -46,7 +46,7 @@ userSchema.methods.toClient = function() {
   return this.email 
 }
 
-export default mongoose.model('User', userSchema)
+module.exports = mongoose.model('User', userSchema)
 
 
 

@@ -1,5 +1,5 @@
-import catchAll from './catchAll'
+const catchAll = require('./catchAll')
 
-export default app => {
+module.exports = (app) => {
   app.use(catchAll)
 }

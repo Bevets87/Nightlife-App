@@ -1,10 +1,10 @@
-import mongoose from 'mongoose'
-import winston from 'winston'
-import config from '../../config'
+const mongoose = require('mongoose')
+const winston = require('winston')
+const config = require('../../config')
 
 mongoose.Promise = global.Promise
 
-export default {
+module.exports = {
   connect() {
    
     mongoose.connect(config.db.url)

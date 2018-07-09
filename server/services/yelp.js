@@ -1,20 +1,20 @@
-import yelp from 'yelp-fusion'
-import validate from '../middleware/validate'
-import Joi from 'joi'
-import _ from 'lodash'
-import config from '../../config'
+const yelp = require('yelp-fusion')
+const validate = require('../middleware/validate')
+const Joi = require('Joi')
+const { take, pick } = require('lodash')
+const config = require('../../config')
 
 const _searchSchema = {
   location: Joi.string().max(50).required()
 }
 
-export const _searchYelp = (req, res) => new Promise((resolve, reject) => {
+const _searchYelp = (req, res) => new Promise((resolve, reject) => {
   yelp.client(config.yelp.api_key)
     .search({ term: 'bars', location: req.body.location })
     .then(response => {
-      req.yelp_listings = _.take(
+      req.yelp_listings = take(
         response.jsonBody.businesses
-          .map(business => _.pick(business, ['id', 'name', 'url', 'image_url', 'price', 'rating', 'location', 'phone'])), 
+          .map(business => pick(business, ['id', 'name', 'url', 'image_url', 'price', 'rating', 'location', 'phone'])), 
         15
       )
       return resolve() 
@@ -22,8 +22,7 @@ export const _searchYelp = (req, res) => new Promise((resolve, reject) => {
     .catch(error => reject({ ...error, message: 'Yelp search failed' }) )
 })
 
-
-export const getYelpListings = [
+const getYelpListings = [
   (req, res, next) => {
     validate(_searchSchema)('body')(req, res)
       .then(() => next())
@@ -35,6 +34,10 @@ export const getYelpListings = [
       .catch(error => res.status(400).json(error))
   }
 ]
+
+module.exports = {
+  _searchYelp, getYelpListings
+}
   
 
 

@@ -1,8 +1,8 @@
-import userRouter from './user'
-import barRouter from './bar'
-import path from 'path'
+const userRouter = require('./user')
+const barRouter = require('./bar')
+const path = require('path')
 
-export default (app) => {
+module.exports = (app) => {
   app.use('/api/users', userRouter)
   app.use('/api/bars', barRouter)
 

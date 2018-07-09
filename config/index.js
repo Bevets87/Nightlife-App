@@ -1,4 +1,4 @@
-import _ from 'lodash'
+const { merge } = require('lodash')
 
 let env = process.env.NODE_ENV
 
@@ -23,7 +23,7 @@ else {
 }
 
 
-module.exports = _.merge(baseConfig, envConfig)
+module.exports = merge(baseConfig, envConfig)
 
 
 

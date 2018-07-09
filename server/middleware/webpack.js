@@ -1,10 +1,7 @@
-import webpack from 'webpack'
-import webpackConfig from '../../webpack.config.babel'
-import config from '../../config'
-import path from 'path'
+const webpack = require('webpack')
+const webpackConfig = require('../../webpack.config.babel')
 
-
-export default (app) => {
+module.exports = (app) => {
   const compiler = webpack(webpackConfig)
 
   const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {

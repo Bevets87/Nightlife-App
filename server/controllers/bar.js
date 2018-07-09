@@ -1,7 +1,7 @@
-import Bar from '../models/bar'
-import _ from 'lodash'
-import validate from '../middleware/validate'
-import Joi from 'joi'
+const Bar = require('../models/bar')
+const { find } = require('lodash')
+const validate = require('../middleware/validate')
+const Joi = require('joi')
 
 const _patronSchema = {
   yelp_id: Joi.string().required(),
@@ -10,14 +10,14 @@ const _patronSchema = {
 
 
 const _mapBarsToYelpListings = (bars) => (listing) => {
-  const bar = _.find(bars, { yelp_id: listing.id })
+  const bar = find(bars, { yelp_id: listing.id })
   listing.going = bar ? bar.patrons.length : 0
   listing.patrons = bar ? bar.patrons : []
   return listing  
 }
 
 
-export const addPatron = [ 
+const addPatron = [ 
   (req, res, next) => {
     validate(_patronSchema)('body')(req, res)
       .then(() => { next() })
@@ -30,7 +30,7 @@ export const addPatron = [
   }
 ]
   
-export const removePatron = [
+const removePatron = [
   (req, res, next) => {
     validate(_patronSchema)('body')(req, res)
       .then(() => { next() })
@@ -43,10 +43,17 @@ export const removePatron = [
   }
 ]
   
-export const getBars = (req, res) => {
+const getBars = (req, res) => {
   Bar.findAllByYelpIds(req.yelp_listings.map(listing => listing.id))
     .then((bars) => res.status(200).json(req.yelp_listings.map(_mapBarsToYelpListings(bars))) )
     .catch((error) => res.status(400).json({ ...error, message: 'Unable to get bars' }))
 } 
+
+module.exports = {
+  _patronSchema,
+  addPatron, 
+  removePatron, 
+  getBars
+}
 
 

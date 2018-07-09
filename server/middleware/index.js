@@ -1,10 +1,10 @@
-import bodyParser from 'body-parser'
-import compression from 'compression'
-import helmet from 'helmet'
-import cors from 'cors'
+const bodyParser = require('body-parser')
+const compression = require('compression')
+const helmet = require('helmet')
+const cors = require('cors')
 
 
-export default (app) => {
+module.exports = (app) => {
   app.use(compression())
   app.use(cors())
   app.use(bodyParser.json())

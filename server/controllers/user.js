@@ -1,26 +1,26 @@
-import User from '../models/user'
-import _ from 'lodash'
-import validate from '../middleware/validate'
-import Joi from 'joi'
+const User = require('../models/user')
+const { pick } = require('lodash')
+const validate = require('../middleware/validate')
+const Joi = require('joi')
 
-export const _signupSchema = {
+const _signupSchema = {
   email: Joi.string().min(5).max(255).email().required(),
   password: Joi.string().min(5).max(255).required(),
   passwordConfirmation: Joi.any().valid(Joi.ref('password')).required().options({ language: { any: { allowOnly: 'Must match password' } } })
 }
 
-export const _signinSchema = {
+const _signinSchema = {
   email: Joi.string().min(5).max(255).email().required(),
   password: Joi.string().min(5).max(255).required(),
 }
 
-export const _isNewEmail = (req, res) => new Promise((resolve, reject) => {
+const _isNewEmail = (req, res) => new Promise((resolve, reject) => {
   User.findOne({email: req.body.email})
     .then(user => !user ? resolve({message: 'Email is new'}) : reject({message: 'Email exists'})) 
     .catch(error => reject(error))
 })
 
-export const _getByEmail = (req, res) => new Promise((resolve, reject) => {
+const _getByEmail = (req, res) => new Promise((resolve, reject) => {
   User.findOne({ email: req.body.email })
     .then(user => {
       if (user) { req.user = user; return resolve({ message: 'Added user by email'}) }
@@ -29,7 +29,7 @@ export const _getByEmail = (req, res) => new Promise((resolve, reject) => {
     .catch(error => reject(error))
 })
  
-export const _getById = (req, res) => new Promise((resolve, reject) => {
+const _getById = (req, res) => new Promise((resolve, reject) => {
   User.findById(req.user._id)
     .then(user => {
       req.user = user
@@ -38,8 +38,8 @@ export const _getById = (req, res) => new Promise((resolve, reject) => {
     .catch(error => reject({ ...error, message: 'Invalid id' }))
 })
 
-export const _createOne = (req, res) => new Promise((resolve, reject) => {
-  const user = new User(_.pick(req.body, ['email', 'password']))
+const _createOne = (req, res) => new Promise((resolve, reject) => {
+  const user = new User(pick(req.body, ['email', 'password']))
   user.save()
     .then(user => {
       req.user = user
@@ -48,7 +48,7 @@ export const _createOne = (req, res) => new Promise((resolve, reject) => {
     .catch(error => reject({ ...error, message: 'Unable to create user' }))
 })
 
-export const _validatePassword = (req, res) => new Promise((resolve, reject) => {
+const _validatePassword = (req, res) => new Promise((resolve, reject) => {
   req.user
     .checkPassword(req.body.password)
     .then(isValid => isValid ? resolve({message: 'Valid password'}) : reject({message: 'Invalid email or password'}))
@@ -56,7 +56,8 @@ export const _validatePassword = (req, res) => new Promise((resolve, reject) => 
 })
 
 
-export const signup = [
+
+const  signup = [
   (req, res, next) => {
     validate(_signupSchema)('body')(req, res)
       .then(() => next())
@@ -77,8 +78,7 @@ export const signup = [
   }
 ]
 
-
-export const signin = [
+const signin = [
   (req, res, next) => {
     validate(_signinSchema)('body')(req, res)
       .then(() => next())
@@ -99,10 +99,25 @@ export const signin = [
   }
 ]
 
-export const getMe = (req, res) => {
+const getMe = (req, res) => {
   _getById(req, res)
     .then(() => res.status(200).json(req.user.toClient()))
     .catch((error) => res.status(400).json(error))
+}
+
+
+
+module.exports = {
+  _signinSchema,
+  _signupSchema,
+  _isNewEmail, 
+  _getByEmail, 
+  _getById, 
+  _createOne, 
+  _validatePassword, 
+  signin, 
+  signup, 
+  getMe
 }
   
 
