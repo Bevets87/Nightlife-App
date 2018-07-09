@@ -8,10 +8,6 @@
       "presets": [ ["env", { "modules": false } ], "react" ],
       "plugins": [ "transform-object-rest-spread", "transform-class-properties", "syntax-dynamic-import" ]
     },
-    "deployment": {
-      "presets": [ "env", "react" ],
-      "plugins": [ "transform-object-rest-spread" ]
-    },
     "testing": {
       "presets": [ "env", "react" ],
       "plugins": [
