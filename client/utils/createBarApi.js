@@ -1,4 +1,5 @@
 import { getToken } from './tokenApi'
+import config from '../../config'
 
 export default (fetchImpl) => {
   

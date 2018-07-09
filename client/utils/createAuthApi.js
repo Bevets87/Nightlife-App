@@ -1,6 +1,7 @@
 import { getToken, setToken, removeToken } from './tokenApi'
 import validateSignin from '../validations/signin'
 import validateSignup from '../validations/signup'
+import config from '../../config'
 
 export default (fetchImpl) => {
 
